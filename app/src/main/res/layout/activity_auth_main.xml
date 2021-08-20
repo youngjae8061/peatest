@@ -80,5 +80,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ako_logo" />
+        app:srcCompat="@drawable/devday" />
 </androidx.constraintlayout.widget.ConstraintLayout>
