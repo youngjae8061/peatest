@@ -33,7 +33,26 @@ public class AuthMainActivity extends AppCompatActivity {
 
     private void _openFacebookLogin() {
         // Add code here
+        HostedUIOptions hostedUIOptions = HostedUIOptions.builder()
+                .scopes("openid", "email")
+                .identityProvider("Facebook")
+                .build();
 
+        SignInUIOptions signInUIOptions = SignInUIOptions.builder()
+                .hostedUIOptions(hostedUIOptions)
+                .build();
+
+        AWSMobileClient.getInstance().showSignIn((Activity) context, signInUIOptions, new Callback<UserStateDetails>() {
+            @Override
+            public void onResult(UserStateDetails details) {
+                Log.d(TAG, "onResult: " + details.getUserState());
+            }
+
+            @Override
+            public void onError(Exception e) {
+                Log.e(TAG, "onError: ", e);
+            }
+        });
     }
 
     @Override
@@ -41,7 +60,12 @@ public class AuthMainActivity extends AppCompatActivity {
         super.onResume();
 
         // Add code here
-
+        Intent activityIntent = getIntent();
+        if (activityIntent.getData() != null &&
+                "socialdemoapp".equals(activityIntent.getData().getScheme())) {
+            if (AWSMobileClient.getInstance().handleAuthResponse(activityIntent))
+                CommonAction.checkSession(this, true);
+        }
     }
 
     public void openLogin(View view) {
