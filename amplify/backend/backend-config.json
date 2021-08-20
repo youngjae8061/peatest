@@ -1,0 +1,10 @@
+{
+  "auth": {
+    "reviewnotef32fd490": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
+  }
+}
