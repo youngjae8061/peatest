@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         switch (requestCode) {
             case MY_PERMISSION_CAMERA:
                 for (int i = 0; i < grantResults.length; i++) {
@@ -78,4 +79,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+
+
 }

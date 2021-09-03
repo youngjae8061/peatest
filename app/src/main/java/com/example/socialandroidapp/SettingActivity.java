@@ -2,22 +2,33 @@ package com.example.socialandroidapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.amazonaws.mobile.auth.core.IdentityManager;
+import com.amazonaws.mobile.auth.core.SignInStateChangeListener;
 import com.amazonaws.mobile.client.AWSMobileClient;
-
+import com.amazonaws.mobile.client.Callback;
+import com.amazonaws.mobile.client.HostedUIOptions;
+import com.amazonaws.mobile.client.SignOutOptions;
+import com.amazonaws.mobile.client.UserStateDetails;
+import com.amazonaws.mobile.config.AWSConfiguration;
+import com.amazonaws.mobileconnectors.cognitoidentityprovider.CognitoUser;
+import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
+import com.amplifyframework.auth.options.AuthSignOutOptions;
+import com.amplifyframework.core.Amplify;
 
 public class SettingActivity extends AppCompatActivity {
 
 
     private Spinner customergrade, translatedlanguage;
     private String TAG = "dev-day-setting";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +63,41 @@ public class SettingActivity extends AppCompatActivity {
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AWSMobileClient.getInstance().signOut();
+//                Amplify.Auth.signOut(
+//                        AuthSignOutOptions.builder().globalSignOut(true).build(),
+//                        () -> Log.i("AuthQuickstart", "onResult : Logout Click!!  Signed out globally"),
+//                        error -> Log.e("AuthQuickstart", "onResult : Logout Click ERREOR" + error.toString())
+//                );
+
+//                AWSMobileClient.getInstance().signOut();
+                AWSMobileClient.getInstance().signOut(SignOutOptions.builder().invalidateTokens(true).build(), new Callback<Void>() {
+                    @Override
+                    public void onResult(Void result) {
+                        Log.d(TAG, "onResult:  Signed Out");
+
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+                        Log.e(TAG, "onResult(Err): ", e);
+                    }
+                });
+
+//                AWSMobileClient.getInstance().signOut(SignOutOptions.builder().signOutGlobally(true).build(), new Callback<Void>() {
+//                    @Override
+//                    public void onResult(Void result) {
+//                        Log.d(TAG, "onResult : Signed Out");
+//                    }
+//
+//                    @Override
+//                    public void onError(Exception e) {
+//                        Log.e(TAG, "onResult : " + e.toString());
+//                        Log.d(TAG, "onResult : Err!!!!");
+//                    }
+//                });
+//                 AWSMobileClient.getInstance().currentUserState();
+                //SignOutOptions.builder().signOutGlobally(true).build();
+                // Log.d("SettingActivity", "onResult >>> 로그아웃 성공!!!");
                 CommonAction.openAuthMain(SettingActivity.this);
             }
         });

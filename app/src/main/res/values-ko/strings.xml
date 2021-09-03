@@ -51,6 +51,10 @@
         <item>Finnish</item>
         <item>Turkish</item>
     </string-array>
+
+    <string name="facebook_app_id">374963257279398</string>
+    <string name="fb_login_protocol_scheme">fb374963257279398</string>
+<!--    <string name="facebook_app_id">1037498430324693</string>-->
     <string name="setting_signout">로그아웃</string>
     <string name="setting_logout_btn">로그아웃</string>
     <string name="start_fb">페이스북으로 시작</string>
