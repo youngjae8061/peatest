@@ -1,0 +1,73 @@
+<resources>
+    <string name="app_name">SocialAndroidApp</string>
+    <string name="write_title">Subject :</string>
+    <string name="write_title_hint">Please enter a subject</string>
+    <string name="write_content_hint">Please write a new post</string>
+    <string name="write_uploadbtn_text">Post a picture</string>
+    <string name="cancel_btn">cancel</string>
+    <string name="complete_btn">done</string>
+    <string name="setting_title">Profile settings</string>
+    <string name="setting_text_prefer">Preferred language setting</string>
+    <string name="setting_grage_txt">Membership level</string>
+    <string name="setting_save_btn">Save</string>
+    <string name="item_title">Subject :</string>
+    <string name="item_traslate_btn">Translate</string>
+    <string name="main_title_txt">List</string>
+    <string name="main_profile_btn">Settings</string>
+    <string name="main_write_btn">Write</string>
+    <string name="warning_picture">Photo is required</string>
+    <string name="write_main_title">Create new post</string>
+
+
+    <string name="setting_signout">Logout</string>
+    <string name="facebook_app_id">374963257279398</string>
+    <string name="fb_login_protocol_scheme">fb374963257279398</string>
+
+<!--    <string name="facebook_app_id">1037498430324693</string>-->
+    <string name="setting_logout_btn">LOGOUT</string>
+    <string name="start_fb">Login with Facebook</string>
+    <string name="start_google">Login with Google</string>
+    <string name="login_email">Login with Email</string>
+    <string name="signup">Sign Up</string>
+    <string name="email_address">Email address</string>
+    <string name="pw_8">password - least 8 characters, special, uppercase, and numbers</string>
+    <string name="login">Login</string>
+    <string name="forget_pw">Forgot Password?</string>
+    <string name="signup_email">Sign up with Email</string>
+    <string name="enter_address">Enter Email Address</string>
+    <string name="confirm_pw">confirm password</string>
+    <string name="user_check">confirm user information</string>
+    <string name="code_confirm">Enter code</string>
+    <string name="enter">Enter</string>
+    <string-array name="grade_array">
+        <item>PLATINUM</item>
+        <item>GOLD</item>
+        <item>SILVER</item>
+    </string-array>
+    <string-array name="language_array">
+        <item>Chinese (Simplified)</item>
+        <item>Chinese (Traditional)</item>
+        <item>Indonesian</item>
+        <item>Japanese</item>
+        <item>Korean</item>
+        <item>Malay</item>
+        <item>Danish</item>
+        <item>English</item>
+        <item>German</item>
+        <item>Norwegian</item>
+        <item>Swedish</item>
+        <item>French</item>
+        <item>Italian</item>
+        <item>Spanish</item>
+        <item>Portuguese</item>
+        <item>Czech</item>
+        <item>Polish</item>
+        <item>Russian</item>
+        <item>Arabic</item>
+        <item>Hebrew</item>
+        <item>Hindi</item>
+        <item>Persian</item>
+        <item>Finnish</item>
+        <item>Turkish</item>
+    </string-array>
+</resources>
