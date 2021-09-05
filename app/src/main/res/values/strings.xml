@@ -18,10 +18,12 @@
     <string name="warning_picture">Photo is required</string>
     <string name="write_main_title">Create new post</string>
 
+    <string name="facebook_app_id">1037498430324693</string>
+    <string name="fb_login_protocol_scheme">fb1037498430324693</string>
 
     <string name="setting_signout">Logout</string>
-    <string name="facebook_app_id">374963257279398</string>
-    <string name="fb_login_protocol_scheme">fb374963257279398</string>
+<!--    <string name="facebook_app_id">374963257279398</string>-->
+<!--    <string name="fb_login_protocol_scheme">fb374963257279398</string>-->
 
 <!--    <string name="facebook_app_id">1037498430324693</string>-->
     <string name="setting_logout_btn">LOGOUT</string>

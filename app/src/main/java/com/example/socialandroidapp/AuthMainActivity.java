@@ -21,9 +21,17 @@ import com.amazonaws.mobile.client.UserStateDetails;
 import com.amplifyframework.AmplifyException;
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.core.Amplify;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class AuthMainActivity extends AppCompatActivity {
@@ -32,6 +40,7 @@ public class AuthMainActivity extends AppCompatActivity {
 
     private Context context;
 
+    private CallbackManager callbackManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +49,26 @@ public class AuthMainActivity extends AppCompatActivity {
 
         context = this;
 
+        // 로그인 응답을 처리할 콜백 관리자
+        callbackManager = CallbackManager.Factory.create();
+
+        //Initialize credentials provider
         CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
                 getApplicationContext(), // Context
                 "IDENTITY_POOL_ID", // Identity Pool ID
-                Regions.US_EAST_1 // Region
+                Regions.AP_NORTHEAST_2 // Region
         );
+
+        //Create a login map
+        Map<String, String> logins = new HashMap<String, String>();
+        logins.put("www.amazon.com", "login with Amazon token");
+
+        //Set login map
+        credentialsProvider.setLogins(logins);
+        credentialsProvider.getCredentials();
+
+        //Create clients for AWS services with credentialsProvider as a parameter in the constructor
+
 
         try {
             Amplify.addPlugin(new AWSCognitoAuthPlugin());
@@ -70,20 +94,13 @@ public class AuthMainActivity extends AppCompatActivity {
 
     private void _openFacebookLogin() {
         Log.d(TAG, "onResult(유저상태~): " + AWSMobileClient.getInstance().currentUserState());
-//        HostedUIOptions hostedUIOptions = HostedUIOptions.builder()
-//                .scopes("openid", "email")
-//                .identityProvider("Facebook")
-//                .build();
-//
-//        SignInUIOptions signInUIOptions = SignInUIOptions.builder()
-//                .hostedUIOptions(hostedUIOptions)
-//                .build();
 
         AWSMobileClient.getInstance().initialize(getApplicationContext(), new Callback<UserStateDetails>() {
             @Override
             public void onResult(UserStateDetails result) {
                 Log.d(TAG, "onResult: getinstance.initialize()");
                 Log.i(TAG, result.getUserState().toString());
+
                 switch (result.getUserState()){
                     case SIGNED_IN:
                         Intent i = new Intent(AuthMainActivity.this, SettingActivity.class);
@@ -107,21 +124,6 @@ public class AuthMainActivity extends AppCompatActivity {
                 Log.e(TAG, "onError: ", e);
             }
         });
-
-//        AWSMobileClient.getInstance().showSignIn((Activity) context, signInUIOptions, new Callback<UserStateDetails>() {
-//            @Override
-//            public void onResult(UserStateDetails details) {
-//
-////                Log.i(TAG, "onResult(유저상태): " + details.getUserState().toString());
-//                Log.d(TAG, "onResult(유저상태): " + details.getUserState());
-//                Log.d(TAG, "onResult(유저토큰): " + details.getDetails().get("token"));
-//            }
-//
-//            @Override
-//            public void onError(Exception e) {
-//                Log.e(TAG, "onError: ", e);
-//            }
-//        });
     }
 
     private void _openGoogleLogin() {
@@ -150,6 +152,12 @@ public class AuthMainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
 
@@ -175,29 +183,24 @@ public class AuthMainActivity extends AppCompatActivity {
 
 
     private void showSignIn() {
-//        HostedUIOptions hostedUIOptions = HostedUIOptions.builder()
-//                .scopes("openid", "email")
-//                .identityProvider("Facebook")
-//                .build();
-
-//        SignInUIOptions signInUIOptions = SignInUIOptions.builder()
-//                .hostedUIOptions(hostedUIOptions)
-//                .build();
-
         Log.d(TAG, "onResult: showSignIn()");
         try {
             HostedUIOptions hostedUIOptions = HostedUIOptions.builder()
                     .scopes("openid", "email")
                     .identityProvider("Facebook")
                     .build();
-            Log.d(TAG, "onResult: try{} in showSignIn()");
-            AWSMobileClient.getInstance().showSignIn(this,
-                    SignInUIOptions.builder()
-                            .hostedUIOptions(hostedUIOptions)
-                            .build());
- //                   SignInUIOptions.builder().nextActivity(SettingActivity.class).build());
+            Log.d(TAG, "onResult: try{} in showSignIn() >> HostedUIOptions");
+            SignInUIOptions signInUIOptions = SignInUIOptions.builder()
+                .hostedUIOptions(hostedUIOptions)
+                .build();
+            Log.d(TAG, "onResult: try{} in showSignIn() >> SignInUIOptions");
+//            AWSMobileClient.getInstance().showSignIn(this,
+//                    SignInUIOptions.builder()
+//                            .hostedUIOptions(hostedUIOptions)
+//                            .build());
+////                    SignInUIOptions.builder().nextActivity(SettingActivity.class).build());
         } catch (Exception e) {
-            Log.e(TAG, e.toString());
+            Log.e(TAG, "onResult: try{} catch{} ERROR >>> " + e.toString());
         }
     }
 
