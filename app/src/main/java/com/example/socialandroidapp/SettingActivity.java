@@ -26,7 +26,7 @@ import com.amplifyframework.core.Amplify;
 
 public class SettingActivity extends AppCompatActivity {
 
-
+    // test
     private Spinner customergrade, translatedlanguage;
     private String TAG = "dev-day-setting";
     @Override
